@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { GameContext } from "./GameProvider";
 import "./Cell.css";
-import '@fortawesome/fontawesome-free/css/all.css';
-
 
 // Child Component
 const Cell = ({ row, col }) => {
@@ -61,4 +59,12 @@ const Cell = ({ row, col }) => {
         : cell.isRevealed && cell.isSaw
         ? "🪓" // Show lumberjack icon for saws
         : cell.isRevealed && !cell.isSaw && cell.neighborSaws === 0
-        ? "🌳" // Show tre
+        ? "🌳" // Show tree emoji for safe habitats
+        : cell.isRevealed && !cell.isSaw && cell.neighborSaws > 0
+        ? cell.neighborSaws // Show number for neighboring saws
+        : ""}
+    </div>
+  );
+};
+
+export default Cell;
