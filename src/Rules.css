@@ -1,0 +1,53 @@
+.RulesContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+.RulesContent {
+  max-width: 100%;
+  width: 100%;
+  text-align: left;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.RulesContent h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.RulesContent ul {
+  padding-left: 20px;
+}
+
+.RulesContent li {
+  margin-bottom: 10px;
+}
+  
+@media (max-width: 768px) {
+  .RulesContent {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .RulesContent h1 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .RulesContent {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .RulesContent h1 {
+    font-size: 16px;
+  }
+}
+  

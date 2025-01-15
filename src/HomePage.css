@@ -1,0 +1,30 @@
+.HomeContainer {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+}
+
+.HomeHeader h1 {
+  font-size: 36px;
+  color: #283a4c;
+}
+
+.HomeNav {
+  margin-top: 20px;
+}
+
+.HomeLink {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  background-color: #4477ef;
+  border-radius: 5px;
+  transition: background-color 0.4s ease;
+}
+
+.HomeLink:hover {
+  background-color: #efa544;
+}

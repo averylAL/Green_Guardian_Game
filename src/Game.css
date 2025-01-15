@@ -1,0 +1,38 @@
+.GameContainer {
+  text-align: center;
+  margin: 20px;
+}
+
+.GameHeader {
+  margin-bottom: 20px;
+}
+
+.GameHeader button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.GameBoard {
+  display: grid;
+  gap: 2px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+  .GameBoard {
+    max-width: 30%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .GameBoard {
+    max-width: 30%;
+  }
+}
+
+
+ 

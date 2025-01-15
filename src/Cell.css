@@ -1,0 +1,44 @@
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 0.5px solid rgb(167, 162, 162);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cell.unselected {
+  background-color: lightgray;
+}
+
+.cell.revealed {
+  background-color: rgba(247, 241, 241, 0.818);
+}
+
+.cell.mine {
+  background-color: red;
+  color: white;
+}
+
+.cell:hover {
+  background-color: #acaaaa;
+}
+
+.cell.flagged {
+  background-color: rgb(249, 190, 42);
+}
+
+@media screen and (max-width: 768px) {
+  .cell {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cell {
+    width: 20px;
+    height: 20px;
+  }
+}
