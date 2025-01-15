@@ -9,7 +9,7 @@ const Cell = ({ row, col }) => {
           setGameBoard, 
           handleCellClick, 
           gameOver, 
-          sawsLeft,
+          sawLeft,
           setSawsLeft
         } = useContext(GameContext);
         
@@ -34,7 +34,7 @@ const Cell = ({ row, col }) => {
     updatedBoard[row][col].isFlagged = !updatedBoard[row][col].isFlagged;
 
     // update the saws Left
-    const newSawsLeft = sawsLeft + (updatedBoard[row][col].isFlagged ? -1 : 1);
+    const newSawsLeft = sawLeft + (updatedBoard[row][col].isFlagged ? -1 : 1);
     setSawsLeft(newSawsLeft);
 
     setGameBoard(updatedBoard); 
@@ -55,13 +55,13 @@ const Cell = ({ row, col }) => {
       onContextMenu={handleRightClick}
     >
         {cell.isFlagged
-        ? "🚩" // Show flag if the cell is flagged
-        : cell.isRevealed && cell.isSaw
-        ? "🪓" // Show lumberjack icon for saws
-        : cell.isRevealed && !cell.isSaw && cell.neighborSaws === 0
-        ? "🌳" // Show tree emoji for safe habitats
+        ? "🚩" 
         : cell.isRevealed && !cell.isSaw && cell.neighborSaws > 0
-        ? cell.neighborSaws // Show number for neighboring saws
+        ? cell.neighborSaws 
+        : cell.isRevealed && cell.isSaw
+        ? "🪓" 
+        : cell.isRevealed && !cell.isSaw && cell.neighborSaws === 0
+        ? "🌳" 
         : ""}
     </div>
   );
