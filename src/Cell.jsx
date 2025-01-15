@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { GameContext } from "./GameProvider";
 import "./Cell.css";
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 // Child Component
 const Cell = ({ row, col }) => {
@@ -9,8 +11,8 @@ const Cell = ({ row, col }) => {
           setGameBoard, 
           handleCellClick, 
           gameOver, 
-          bombsLeft,
-          setBombsLeft
+          sawsLeft,
+          setSawsLeft
         } = useContext(GameContext);
         
   const cell = gameBoard[row][col];
@@ -19,7 +21,7 @@ const Cell = ({ row, col }) => {
     handleCellClick(row, col);
   };
 
-  // Extra Credit: Flag Bomb Function
+  // Extra Credit: Flag saw Function
   const handleRightClick = (e) => {
     e.preventDefault(); 
     e.stopPropagation();
@@ -33,9 +35,9 @@ const Cell = ({ row, col }) => {
     // toggle the flag state
     updatedBoard[row][col].isFlagged = !updatedBoard[row][col].isFlagged;
 
-    // update the bombs Left
-    const newBombsLeft = bombsLeft + (updatedBoard[row][col].isFlagged ? -1 : 1);
-    setBombsLeft(newBombsLeft);
+    // update the saws Left
+    const newSawsLeft = sawsLeft + (updatedBoard[row][col].isFlagged ? -1 : 1);
+    setSawsLeft(newSawsLeft);
 
     setGameBoard(updatedBoard); 
     }
@@ -44,8 +46,8 @@ const Cell = ({ row, col }) => {
     <div
     className={`cell ${
       cell.isRevealed
-        ? cell.isMine
-          ? "mine"
+        ? cell.isSaw
+          ? "saw"
           : "revealed"
         : cell.isFlagged
         ? "flagged"
@@ -54,15 +56,9 @@ const Cell = ({ row, col }) => {
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {cell.isFlagged
-        ? "🚩"
-        : cell.isRevealed && !cell.isMine && cell.neighborMines > 0
-        ? cell.neighborMines
-        : cell.isRevealed && cell.isMine
-        ? "💣"
-        : ""}
-    </div>
-  );
-};
-
-export default Cell;
+        {cell.isFlagged
+        ? "🚩" // Show flag if the cell is flagged
+        : cell.isRevealed && cell.isSaw
+        ? "🪓" // Show lumberjack icon for saws
+        : cell.isRevealed && !cell.isSaw && cell.neighborSaws === 0
+        ? "🌳" // Show tre

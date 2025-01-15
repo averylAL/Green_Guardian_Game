@@ -7,6 +7,16 @@
 .HomeHeader h1 {
   font-size: 36px;
   color: #283a4c;
+  margin-bottom: 20px;
+}
+
+.HomeHeader p {
+  font-size: 18px;
+  color: #4a4a4a; /* Slightly lighter color for contrast */
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 20px auto; /* Center the paragraph */
+  padding: 0 15px; /* Add padding for mobile view */
 }
 
 .HomeNav {

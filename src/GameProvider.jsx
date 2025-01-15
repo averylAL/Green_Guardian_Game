@@ -9,42 +9,42 @@ export const GameProvider = ({ children }) => {
   const [gameOver, setGameOver] = useState(false);
   const [win, setWin] = useState(false);
   const [difficulty, setDifficulty] = useState("easy");
-  // Extra credit:Flag Bomb Function
-  const [bombsLeft, setBombsLeft] = useState(0);
+  // Extra credit:Flag Saw Function
+  const [sawLeft, setSawsLeft] = useState(0);
 
   // 3 difficulty level
   const difficulties = {
-    easy: { rows: 8, cols: 8, mines: 10 },
-    medium: { rows: 16, cols: 16, mines: 40 },
-    hard: { rows: 30, cols: 16, mines: 99 },
+    easy: { rows: 8, cols: 8, saws: 10 },
+    medium: { rows: 16, cols: 16, saws: 40 },
+    hard: { rows: 30, cols: 16, saws: 99 },
   };
 
 
-  const initializeBoard = (rows, cols, mines) => {
+  const initializeBoard = (rows, cols, saws) => {
     const board = Array.from({ length: rows }, () =>
       Array.from({ length: cols }, () => ({
-        isMine: false,
+        isSaw: false,
         isRevealed: false,
         isFlagged: false,
-        neighborMines: 0,
+        neighborSaws: 0,
       }))
     );
 
-    // Place mines
-    let mineCount = 0;
-    while (mineCount < mines) {
+    // Place saws
+    let sawCount = 0;
+    while (sawCount < saws) {
       const randomRow = Math.floor(Math.random() * rows);
       const randomCol = Math.floor(Math.random() * cols);
-      if (!board[randomRow][randomCol].isMine) {
-        board[randomRow][randomCol].isMine = true;
-        mineCount++;
+      if (!board[randomRow][randomCol].isSaw) {
+        board[randomRow][randomCol].isSaw = true;
+        sawCount++;
       }
     }
 
-    // Calculate neighbor mine counts
+    // Calculate neighbor saw counts
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        if (!board[row][col].isMine) {
+        if (!board[row][col].isSaw) {
           const neighbors = [
             // top left
             [row - 1, col - 1],
@@ -63,13 +63,13 @@ export const GameProvider = ({ children }) => {
             // bottom right
             [row + 1, col + 1],
           ];
-          board[row][col].neighborMines = neighbors.reduce((count, [r, c]) => {
-            // check if neighbor cell pos is valid(not exceeds board) and has mine
+          board[row][col].neighborSaws = neighbors.reduce((count, [r, c]) => {
+            // check if neighbor cell pos is valid(not exceeds board) and has saw
             if (r >= 0 && 
                 r < rows && 
                 c >= 0 && 
                 c < cols && 
-                board[r][c].isMine) {
+                board[r][c].isSaw) {
               count++;
             }
             return count;
@@ -78,21 +78,21 @@ export const GameProvider = ({ children }) => {
       }
     }
     setGameBoard(board);
-    setBombsLeft(mines);
+    setSawsLeft(saws);
     setGameOver(false);
     setWin(false);
   };
 
 
   const resetGame = () => {
-    const {rows, cols, mines} = difficulties[difficulty];
-    initializeBoard(rows, cols, mines);
-    setBombsLeft(mines); 
+    const {rows, cols, saws} = difficulties[difficulty];
+    initializeBoard(rows, cols, saws);
+    setSawsLeft(saws); 
   };
 
   const checkWinCondition = () => {
     const allSafeCellsRevealed = gameBoard.flat().every(
-      (cell) => cell.isRevealed || cell.isMine
+      (cell) => cell.isRevealed || cell.isSaw
     );
     if (allSafeCellsRevealed) {
       setWin(true);
@@ -107,13 +107,13 @@ export const GameProvider = ({ children }) => {
       r.map((cell) => ({ ...cell }))
     );
 
-    if (newBoard[row][col].isMine) {
+    if (newBoard[row][col].isSaw) {
       newBoard[row][col].isRevealed = true;
       setGameOver(true);
     } else {
       newBoard[row][col].isRevealed = true;
       // Extra Credit: Auto Clear
-      if (newBoard[row][col].neighborMines === 0) {
+      if (newBoard[row][col].neighborSaws === 0) {
         revealEmptyCells(newBoard, row, col);
       }
     }
@@ -147,10 +147,10 @@ export const GameProvider = ({ children }) => {
           nc >= 0 &&
           nc < board[0].length &&
           !board[nr][nc].isRevealed &&
-          !board[nr][nc].isMine
+          !board[nr][nc].isSaw
         ) {
           board[nr][nc].isRevealed = true;
-          if (board[nr][nc].neighborMines === 0) {
+          if (board[nr][nc].neighborSaws === 0) {
             stack.push([nr, nc]);
           }
         }
@@ -164,8 +164,8 @@ export const GameProvider = ({ children }) => {
       ? routeDifficulty
       : "easy";
   
-    const {rows, cols, mines} = difficulties[selectedDifficulty];
-    initializeBoard(rows, cols, mines);
+    const {rows, cols, saws} = difficulties[selectedDifficulty];
+    initializeBoard(rows, cols, saws);
     setDifficulty(selectedDifficulty);
   }, [routeDifficulty]);
   
@@ -180,8 +180,8 @@ export const GameProvider = ({ children }) => {
         resetGame,
         difficulty,
         handleCellClick,
-        bombsLeft, 
-        setBombsLeft
+        sawLeft, 
+        setSawsLeft
       }}
     >
       {children}

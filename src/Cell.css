@@ -9,15 +9,15 @@
 }
 
 .cell.unselected {
-  background-color: lightgray;
+  background-color: #e0e0e0;
 }
 
 .cell.revealed {
-  background-color: rgba(247, 241, 241, 0.818);
+  background-color: #c8e6c9;
 }
 
 .cell.mine {
-  background-color: red;
+  background-color: rgb(247, 247, 247);
   color: white;
 }
 
